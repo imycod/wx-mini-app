@@ -1,0 +1,38 @@
+<!--pages/home/home.wxml-->
+<view hover-class='a'>
+  <text>hello world</text>
+</view>
+<view>
+  <text>hello world</text>
+</view>
+<view>
+  <input disabled="true" placeholder="请输入用户名"/>
+</view>
+<view>
+  <input confirm-type="search" placeholder="请输入用户名"/>
+</view>
+<view>
+  <input password='true' placeholder-style='color:red' placeholder="请输入用户名"/>
+</view>
+<view>
+  <textarea focus="true" style="border:10px solid black;" placeholder="请输入个人简介"></textarea>
+</view>
+<view>
+  <button type="primary" plain="true" >立即登录</button>
+  <button type="default" loading="true">立即登录</button>
+  <button type="warn" size="mini">立即登录</button>
+</view>
+<view>
+<view>
+  <label for="username">用户名:</label>
+  <input id="username">用户名:</input>
+</view>
+  <checkbox-group>
+    <checkbox value="Vue" checked="true" color="red"/>Vue
+    <checkbox value="React"/>React
+    <checkbox value="Ang">Ang</checkbox>
+    <label>
+      <checkbox value="Mini"/>Mini
+    </label>
+  </checkbox-group>
+</view>

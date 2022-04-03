@@ -1,0 +1,22 @@
+<!--index.wxml-->
+<view class="container">
+  <!-- navigator -->
+  <navigator url='/pages/home/home'>home</navigator>
+  <navigator url='../demo/demo'>
+    <button type="primary" plain>demo</button>
+  </navigator>
+  <navigator url='/pages/index/index'>
+    <button type="primary">index</button>
+  </navigator>
+  <navigator url='/pages/logs/logs'>logs</navigator>
+  <view class="userinfo">
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+    <block wx:else>
+      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </block>
+  </view>
+  <view class="usermotto">
+    <text class="user-motto">{{motto}}</text>
+  </view>
+</view>

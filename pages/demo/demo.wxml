@@ -1,0 +1,45 @@
+<!--pages/demo/demo.wxml-->
+
+<view>
+  <view>
+    <video poster="/assets/images/bg_3.jpg" controls="true"  loop="true" src="https://www.bilibili.com/video/BV1CC4y1476y?p=16"></video>
+  </view>
+  <form>
+  <view>
+   username: <input placeholder="username"></input>
+  </view>
+  <view>
+    <switch checked color="red"></switch>
+  </view>
+    <view>
+      性别:
+      <radio-group>
+        <radio value="male">男</radio>
+        <radio value="female"/>女
+        <radio value="scret"/>保密
+      </radio-group>
+    </view>
+    <view>
+      <button form-type="submit" type="primary">提交</button>
+      <button form-type="reset" type="warn">重置</button>
+    </view>
+  </form>
+</view>
+<!-- slider -->
+<view>
+  <slider activeColor="red" color="green" value="30"></slider>
+</view>
+<!-- image -->
+<view style="width:100px;height:100px">
+  <image mode="aspectFit" src="//www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png"></image>
+</view>
+<view>
+  <image mode="aspectFill" src="//www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png"></image>
+</view>
+
+<view style="height:400px">
+  <image mode="aspectFill" lazy-load="true" src="//www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png"></image>
+</view>
+<view>
+  <image src="/assets/images/bg_3.jpg"></image>
+</view>
