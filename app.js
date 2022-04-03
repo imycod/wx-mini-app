@@ -37,3 +37,23 @@ App({
     userInfo: null
   }
 })
+
+Array.prototype.greedFindIndex = function (callback) {
+  let index = -1
+  for (let i = this.length; i > 0; i--) {
+    const element = this[i - 1];
+    // console.log("element",element)
+    // console.log("this",this)
+    // console.log("callback(element, i - 1)",callback(element, i - 1))
+    if (i === 0 && callback(element, i - 1) === -1) {
+      index = -1;
+      return index;
+    }
+    if (callback(element, i - 1) !== -1) {
+      return callback(element, i - 1)
+    }
+    if (callback(element, i - 1) === -1 && i !== 0) {
+      continue
+    }
+  }
+}

@@ -1,0 +1,33 @@
+<!--title.wxml-->
+<!-- 最外层 -->
+<view class="pages">
+  <!-- 轮播 -->
+  <swiper class="swiper" indicator-dots="true" autoplay="true" interval="5000" duration="1000">
+    <block wx:for="{{movies}}" wx:for-index="index">
+      <swiper-item>
+        <image src="{{item.url}}" class="slide-image" mode="aspectFill" />
+      </swiper-item>
+    </block>
+  </swiper>
+  <!-- 第一层标题 -->
+  <view class="cont fix-news" wx:if="{{fixTop<scrollTop}}">
+    <text>第{{chartperTopIndex+1}}层标题</text>
+  </view>
+  <view class="cont static-news" wx:else>
+    <text>第{{chartperTopIndex+1}}层标题</text>
+  </view>
+  <!-- 列表数据 -->
+  <view class="list" wx:for="{{5}}" wx:key="index">
+    <view>
+      <view class="charpter">
+         第{{index+1}}层简介列表
+      </view>
+      <view class="list" wx:for="{{5}}" wx:for-index="i" wx:key="i">
+        <view>
+         第{{index+1}}.{{i+1}}层简介列表
+        </view>
+      </view>
+    </view>
+  </view>
+ 
+</view>

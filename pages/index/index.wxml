@@ -1,14 +1,11 @@
 <!--index.wxml-->
 <view class="container">
   <!-- navigator -->
+  <navigator url='/pages/scroll/list/title'>
+    <button  type="primary">滑动列表标题吸顶</button>
+  </navigator>
   <navigator url='/pages/home/home'>home</navigator>
-  <navigator url='../demo/demo'>
-    <button type="primary" plain>demo</button>
-  </navigator>
-  <navigator url='/pages/index/index'>
-    <button type="primary">index</button>
-  </navigator>
-  <navigator url='/pages/logs/logs'>logs</navigator>
+  <navigator url='/pages/index/index'>index</navigator>
   <view class="userinfo">
     <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
     <block wx:else>

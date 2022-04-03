@@ -1,7 +1,0 @@
-<!--pages/tpl/tpl.wxml-->
-<view>
-  <text>{{msg}}</text>
-  <input placeholder="{{tips}}"></input>
-  <input placeholder="{{tips}}" type="{{textType}}"></input>
-  <button title='{{title}}' type="{{color}}">按钮</button>
-</view>

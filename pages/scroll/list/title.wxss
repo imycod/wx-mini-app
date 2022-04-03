@@ -1,0 +1,46 @@
+/* pages/scroll/list/title.wxss */
+
+/* 轮播视图 */
+.swiper {
+  height: 400rpx;
+  width: 100%;
+}
+
+/* 图片 */
+.swiper image {
+  height: 100%;
+  width: 100%;
+}
+
+/* tab_title视图样式 */
+.cont {
+  background: teal;
+  width: 100%;
+  line-height: 100rpx;
+  color: #fff;
+  font-size: 40rpx;
+  border-bottom: 2rpx solid #ccc;
+}
+
+/* cont中的text 左边距 */
+.cont text {
+  padding-left: 30rpx;
+}
+
+.cont.fix-news {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.cont.static-news {
+  background-color: red;
+}
+
+/* 列表数据 */
+.list {
+  padding: 0 30rpx;
+  line-height: 160rpx;
+  text-align: left;
+  border-bottom: 2rpx solid #ccc;
+}
