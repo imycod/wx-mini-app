@@ -1,0 +1,255 @@
+<template>
+  <view class="chaptersList_wrap">
+    <view v-if="!chapterList.length" class="noContents">
+      <emptyComponent :emptyText="emptyText"></emptyComponent>
+    </view>
+    <uni-collapse>
+      <uni-collapse-item v-for="(item, index) in chapterList" :key="item.sort" :title="item.name" :open="item.flag"
+                         class="chapterCard_wrap" title-border="none" :border="false">
+        <template v-slot:title>
+          <view
+              id="title"
+              :class="`bd chapterCard_header ${index!==0 && ($android ? 'border-bottom border-bottom-android' :'border-bottom')}`">
+            <view class="chapterName">{{ `第${Arabia_To_SimplifiedChinese(index + 1)}章 ${item.name}` }}</view>
+          </view>
+        </template>
+        <view class="chapter_conent">
+          <!-- 无节 -->
+          <view class="noChapterList" v-if="!item.chapterDetailEntityList.length">暂无章节</view>
+          <!-- 有节 -->
+          <view
+              :class="`common ${secondIndex!==0 && ( $android ? 'chapter_item chapter_item-android' : 'chapter_item')}`"
+              v-for="(secondItem, secondIndex) in item.chapterDetailEntityList"
+              :key="secondItem.sort">
+            <view class="sectionName">{{ index + 1 }}.{{ secondIndex + 1 }} {{ secondItem.name }}</view>
+            <view class="section_conent">
+              <view class="noSectionList" v-if="!secondItem.teachContentResList.length">暂无课件/视频</view>
+              <sectionItem v-for="threeItem in secondItem.teachContentResList" :key="threeItem.dataId" :item="threeItem"
+                           :classId="classId" :courseId="courseId" :activeFlag="activeFlag"></sectionItem>
+            </view>
+          </view>
+        </view>
+      </uni-collapse-item>
+    </uni-collapse>
+  </view>
+</template>
+
+<script>
+import emptyComponent from '$common/empty/index.nvue';
+import {
+  Component,
+  Prop,
+  Vue
+} from 'vue-property-decorator';
+import sectionItem from '$common/class/section-item-230.nvue';
+import {
+  Arabia_To_SimplifiedChinese
+} from '@/common/utils.js';
+
+@Component({
+  components: {
+    sectionItem,
+    emptyComponent
+  },
+  mounted() {
+    // console.log(this.classId)
+  }
+})
+export default class chaptersList extends Vue {
+  testPaperId = '';
+
+  @Prop(Array)
+  chapterList;
+
+  @Prop(String)
+  classId;
+
+  @Prop(String)
+  courseId;
+
+  @Prop(Number)
+  activeFlag;
+
+  Arabia_To_SimplifiedChinese = Arabia_To_SimplifiedChinese;
+  emptyText = '暂无章节内容';
+
+  processor = {
+    timeoutId: null,
+    //实际执行的代码
+    performProcessing: (e) => {
+      this.getCharptersRectTopIndex('#title');
+      console.log("eeee", e);
+      console.log('performProcessing 方法, 你的处理逻辑');
+      console.log('hello word');
+    },
+    //初始处理调用的方法
+    process: function (e) {
+      console.log('process方法');
+      clearTimeout(this.timeoutId);
+      var that = this;
+      this.timeoutId = setTimeout(function () {
+        that.performProcessing(e);
+      }, 100);
+    }
+  };
+
+  findlastIndex(arr1, num) {
+    let len = arr1.length,
+        index = -1;
+    while (index < len) {
+      ++index;
+      if (arr1[index] >= num) {
+        return index;
+      }
+    }
+  }
+
+  getCharptersRectTopIndex(selector) {
+    let _this = this;
+    console.log("selectorselectorselectorselector", selector);
+    return new Promise(function (resolve, reject) {
+      let index = -1;
+      let query = uni.createSelectorQuery().in(_this);
+      query.selectAll(selector).boundingClientRect((rects, idx) => {
+        console.log("rectsrectsrectsrects", rects);
+        index = findlastIndex(rects, rects[rects.length - 1].top);
+        // index = findlastIndex((item, index) => {
+        //   if (item.top < _this.data.fixHeight) {
+        //     console.log("index", index);
+        //     return index;
+        //   } else {
+        //     return -1;
+        //   }
+        // });
+        // console.log("index query", query);
+        // console.log("index getCharptersRectTopIndex", index);
+        resolve(index);
+      }).exec();
+    });
+  }
+
+  pageScroll(e) {
+    this.processor.process(e);
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.border-bottom {
+  position: relative;
+}
+
+.border-bottom:before {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  width: px2Rpx(690);
+  border: px2Rpx(1) solid #E5E5E5;
+  margin-left: px2Rpx(30);
+  left: 0;
+  right: 0;
+  top: 0;
+  background-color: #E5E5E5;
+  transform-origin: 0 0;
+  transform: scaleY(1);
+}
+
+.border-bottom-android:before {
+  transform: scaleY(0.5);
+}
+
+.chaptersList_wrap {
+  padding-bottom: px2Rpx(60);
+
+  .noContents {
+    margin-top: px2Rpx(120);
+  }
+
+  .chapterCard_wrap {
+    background-color: #FFFFFF;
+    border-radius: px2Rpx(16);
+
+    .chapterCard_header {
+      height: px2Rpx(106);
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      padding: px2Rpx(0) px2Rpx(30);
+
+      .chapterName {
+        font-size: px2Rpx(34);
+        color: #101010;
+      }
+    }
+
+    /deep/ .uni-collapse-item__wrap {
+      border-radius: px2Rpx(16);
+    }
+
+    .chapter_conent {
+      .noChapterList {
+        height: px2Rpx(88);
+        line-height: px2Rpx(88);
+        text-align: center;
+        font-size: px2Rpx(28);
+        color: #A1A1A1;
+        padding-bottom: px2Rpx(30);
+      }
+
+      .common {
+        padding-top: px2Rpx(50);
+        margin-left: px2Rpx(30);
+        position: relative;
+
+        .sectionName {
+          font-size: px2Rpx(28);
+          font-weight: bold;
+          color: #101010;
+          margin-bottom: px2Rpx(30);
+        }
+
+        .section_conent {
+          padding-bottom: px2Rpx(30);
+
+          .noSectionList {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            height: px2Rpx(100);
+            font-size: px2Rpx(28);
+            color: #A1A1A1;
+          }
+
+          .noSectionList {
+            justify-content: center;
+          }
+        }
+      }
+
+      .chapter_item {
+        position: relative;
+      }
+
+      .chapter_item:before {
+        content: '';
+        display: inline-block;
+        position: absolute;
+        width: px2Rpx(690);
+        border: px2Rpx(1) solid #E5E5E5;
+        left: 0;
+        right: 0;
+        top: 0;
+        background-color: #E5E5E5;
+        transform-origin: 0 0;
+        transform: scaleY(1);
+      }
+
+      .chapter_item-android:before {
+        transform: scaleY(0.5);
+      }
+    }
+  }
+}
+</style>
