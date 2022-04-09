@@ -27,6 +27,7 @@
                     v-for="item in classCourseTabList" :key="item.value" @click="changeTab(item.value)">
                 {{ item.name }}
               </view>
+
             </view>
           </view>
           <view v-show="showFixedNavBar">
